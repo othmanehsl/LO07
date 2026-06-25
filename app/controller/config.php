@@ -1,6 +1,7 @@
 <?php
-define('DEBUG', FALSE);
-define('LOCAL', TRUE);
+// Les guards évitent une erreur si config.php est inclus plusieurs fois
+if (!defined('DEBUG')) define('DEBUG', FALSE);
+if (!defined('LOCAL')) define('LOCAL', TRUE);
 
 if (LOCAL) {
     $dsn      = 'mysql:host=localhost;dbname=blablacar;charset=utf8';
