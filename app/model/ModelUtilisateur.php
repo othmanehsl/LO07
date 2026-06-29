@@ -11,7 +11,7 @@ class ModelUtilisateur extends Model
     private $password;
     private $solde;
 
-    // Constructeur : si $id est null (cas PDO::FETCH_CLASS), ne fait rien —
+    // Constructeur : si $id est null (cas PDO::FETCH_CLASS), ne fait rien 
     // PDO a déjà rempli les attributs directement avant d'appeler le constructeur.
     public function __construct($id=NULL, $nom=NULL, $prenom=NULL, $role=NULL,
                                 $login=NULL, $password=NULL, $solde=NULL)

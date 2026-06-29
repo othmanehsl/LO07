@@ -1,7 +1,7 @@
 # LO07 - Projet BlaBlaCar
 
 Application web de covoiturage en architecture MVC.
-Université de Technologie de Troyes - Technologies du Web.
+Université de Technologie de Troyes - LO07 Technologies du Web.
 
 ## Stack
 - PHP (PDO)

@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BlaBlaCar LO07</title>
+    <title>BlaBlaCar - LO07</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { padding-top: 80px; background-color: #f8f9fa; }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
