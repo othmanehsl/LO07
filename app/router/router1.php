@@ -4,6 +4,7 @@ session_start();
 require_once(dirname(__DIR__) . '/controller/ControllerConnexion.php');
 require_once(dirname(__DIR__) . '/controller/ControllerVille.php');
 require_once(dirname(__DIR__) . '/controller/ControllerUtilisateur.php');
+require_once(dirname(__DIR__) . '/controller/ControllerVehicule.php');
 
 // Extraction de l'action depuis l'URL (?action=xxx)
 parse_str($_SERVER['QUERY_STRING'], $param);
@@ -31,6 +32,13 @@ switch ($action) {
     case "utilisateurCreatePassager" :
     case "utilisateurCreated" :
         ControllerUtilisateur::$action();
+        break;
+
+    // --- Véhicules (admin) ---
+    case "vehiculeReadAll" :
+    case "vehiculeCreate" :
+    case "vehiculeCreated" :
+        ControllerVehicule::$action();
         break;
 
     default :
