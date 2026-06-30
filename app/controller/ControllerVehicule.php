@@ -18,6 +18,15 @@ class ControllerVehicule
         require $root . 'app/view/vehicule/viewCreate.php';
     }
 
+    // C1 : liste des véhicules du conducteur connecté
+    public static function vehiculeReadMine()
+    {
+        require dirname(__DIR__) . '/controller/config.php';
+        $id      = $_SESSION['login_id'];
+        $results = ModelVehicule::getByProprietaire($id);
+        require $root . 'app/view/vehicule/viewMine.php';
+    }
+
     public static function vehiculeCreated()
     {
         require dirname(__DIR__) . '/controller/config.php';

@@ -72,6 +72,19 @@ class ModelVehicule
         }
     }
 
+    // Véhicules d'un conducteur donné (utilisé pour C1 et pour le <select> de C3)
+    public static function getByProprietaire($proprietaire_id)
+    {
+        try {
+            $db  = Model::getInstance();
+            $req = $db->prepare('SELECT * FROM vehicule WHERE proprietaire_id = :pid ORDER BY marque');
+            $req->execute([':pid' => $proprietaire_id]);
+            return $req->fetchAll(PDO::FETCH_CLASS, 'ModelVehicule');
+        } catch (PDOException $e) {
+            die("Erreur ModelVehicule::getByProprietaire : " . $e->getMessage());
+        }
+    }
+
     public static function insert($marque, $modele, $annee, $immatriculation, $proprietaire_id)
     {
         try {
