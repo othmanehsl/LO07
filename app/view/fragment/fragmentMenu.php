@@ -3,13 +3,13 @@
 // car le menu connecté doit être affiché sur toutes les pages.
 require_once dirname(dirname(__DIR__)) . '/model/ModelUtilisateur.php';
 
-$loginId      = $_SESSION['login_id'] ?? null;
+$menuUserId   = $_SESSION['login_id'] ?? null;
 $userConnecte = null;
 
-if ($loginId !== null) {
-    $results = ModelUtilisateur::getOne($loginId);
-    if (!empty($results)) {
-        $userConnecte = $results[0];
+if ($menuUserId !== null) {
+    $menuUser = ModelUtilisateur::getOne($menuUserId);
+    if (!empty($menuUser)) {
+        $userConnecte = $menuUser[0];
     }
 }
 ?>

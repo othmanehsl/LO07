@@ -1,7 +1,7 @@
 <?php
 require_once 'Model.php';
 
-class ModelUtilisateur extends Model
+class ModelUtilisateur
 {
     private $id;
     private $nom;
@@ -71,6 +71,48 @@ class ModelUtilisateur extends Model
             return $req->fetchAll(PDO::FETCH_CLASS, 'ModelUtilisateur');
         } catch (PDOException $e) {
             die("Erreur ModelUtilisateur::getByLogin : " . $e->getMessage());
+        }
+    }
+
+    public static function getAll()
+    {
+        try {
+            $db  = Model::getInstance();
+            $req = $db->prepare('SELECT * FROM utilisateur ORDER BY nom');
+            $req->execute();
+            return $req->fetchAll(PDO::FETCH_CLASS, 'ModelUtilisateur');
+        } catch (PDOException $e) {
+            die("Erreur ModelUtilisateur::getAll : " . $e->getMessage());
+        }
+    }
+
+    public static function insert($nom, $prenom, $role, $login, $password, $solde)
+    {
+        try {
+            $db = Model::getInstance();
+
+            // Calcul du prochain id
+            $req = $db->prepare('SELECT MAX(id) FROM utilisateur');
+            $req->execute();
+            $maxId = $req->fetchColumn();
+            $newId = ($maxId === null || $maxId === false) ? 1 : (int)$maxId + 1;
+
+            $req = $db->prepare(
+                'INSERT INTO utilisateur (id, nom, prenom, role, login, password, solde)
+                 VALUES (:id, :nom, :prenom, :role, :login, :password, :solde)'
+            );
+            $req->execute([
+                ':id'       => $newId,
+                ':nom'      => $nom,
+                ':prenom'   => $prenom,
+                ':role'     => $role,
+                ':login'    => $login,
+                ':password' => $password,
+                ':solde'    => $solde,
+            ]);
+            return $newId;
+        } catch (PDOException $e) {
+            return -1;
         }
     }
 }
