@@ -6,6 +6,7 @@ require_once(dirname(__DIR__) . '/controller/ControllerVille.php');
 require_once(dirname(__DIR__) . '/controller/ControllerUtilisateur.php');
 require_once(dirname(__DIR__) . '/controller/ControllerVehicule.php');
 require_once(dirname(__DIR__) . '/controller/ControllerTrajet.php');
+require_once(dirname(__DIR__) . '/controller/ControllerReservation.php');
 
 // Extraction de l'action depuis l'URL (?action=xxx)
 parse_str($_SERVER['QUERY_STRING'], $param);
@@ -47,7 +48,16 @@ switch ($action) {
     case "trajetReadMine" :
     case "trajetCreate" :
     case "trajetCreated" :
+    case "trajetPassagers" :
+    case "trajetCloturer" :
         ControllerTrajet::$action();
+        break;
+
+    // --- Réservations (passager) ---
+    case "reservationReadMine" :
+    case "reservationCreate" :
+    case "reservationCreated" :
+        ControllerReservation::$action();
         break;
 
     default :

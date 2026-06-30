@@ -2,6 +2,7 @@
 require_once dirname(__DIR__) . '/model/ModelTrajet.php';
 require_once dirname(__DIR__) . '/model/ModelVille.php';
 require_once dirname(__DIR__) . '/model/ModelVehicule.php';
+require_once dirname(__DIR__) . '/model/ModelReservation.php';
 
 class ControllerTrajet
 {
@@ -43,5 +44,41 @@ class ControllerTrajet
             $vehicule_id, $prix, $date_depart, $heure_depart
         );
         require $root . 'app/view/trajet/viewCreated.php';
+    }
+
+    // C4 : liste des passagers d'un trajet actif choisi par le conducteur
+    public static function trajetPassagers()
+    {
+        require dirname(__DIR__) . '/controller/config.php';
+        $id = $_SESSION['login_id'];
+
+        if (!isset($_GET['trajet_id'])) {
+            // Étape 1 : aucun trajet sélectionné → afficher le formulaire de choix
+            $trajetsActifs = ModelTrajet::getActifsByConducteur($id);
+            require $root . 'app/view/trajet/viewSelectTrajetPassagers.php';
+        } else {
+            // Étape 2 : trajet sélectionné → afficher ses passagers
+            $trajet_id = (int)$_GET['trajet_id'];
+            $results   = ModelReservation::getPassagersByTrajet($trajet_id);
+            require $root . 'app/view/trajet/viewPassagers.php';
+        }
+    }
+
+    // C5 : clôturer un trajet actif (avec transfert de fonds)
+    public static function trajetCloturer()
+    {
+        require dirname(__DIR__) . '/controller/config.php';
+        $id = $_SESSION['login_id'];
+
+        if (!isset($_GET['trajet_id'])) {
+            // Étape 1 : aucun trajet sélectionné → afficher le formulaire de choix
+            $trajetsActifs = ModelTrajet::getActifsByConducteur($id);
+            require $root . 'app/view/trajet/viewSelectTrajetCloturer.php';
+        } else {
+            // Étape 2 : trajet sélectionné → lancer la clôture
+            $trajet_id = (int)$_GET['trajet_id'];
+            $results   = ModelTrajet::cloturer($trajet_id);
+            require $root . 'app/view/trajet/viewCloturer.php';
+        }
     }
 }
